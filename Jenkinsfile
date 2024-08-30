@@ -65,17 +65,17 @@ pipeline {
         }
 
         success {
-            mail to: 's223353507@deakin.edu.au',
-                 subject: "Pipeline succeeded",
-                 body: "Pipeline finished successfully",
-                 attachLog: true
+            emailext to: 's223353507@deakin.edu.au',
+                     subject: "Pipeline succeeded",
+                     body: "Pipeline finished successfully",
+                     attachLog: true
         }
 
         failure {
-            mail to: 's223353507@deakin.edu.au',
-                 subject: "Pipeline failed",
-                 body: "Pipeline failed. Please check the logs.",
-                 attachLog: true
+            emailext to: 's223353507@deakin.edu.au',
+                     subject: "Pipeline failed",
+                     body: "Pipeline failed. Please check the logs.",
+                     attachLog: true
         }
     }
 }
