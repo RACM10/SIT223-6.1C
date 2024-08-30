@@ -66,7 +66,7 @@ pipeline {
 
         success {
             echo 'Pipeline succeeded'
-            emailext to: 'riley.minca@protonmail.com',
+            emailext to: 'racm12.gaming@gmail.com',
                      subject: "Pipeline succeeded",
                      body: "Pipeline finished successfully",
                      attachLog: true
@@ -74,7 +74,7 @@ pipeline {
 
         failure {
             echo 'Pipeline failed. Please check the logs.'
-            emailext to: 'riley.minca@protonmail.com',
+            emailext to: 'racm12.gaming@gmail.com',
                      subject: "Pipeline failed",
                      body: "Pipeline failed. Please check the logs.",
                      attachLog: true
