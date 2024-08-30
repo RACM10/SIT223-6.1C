@@ -2,6 +2,12 @@ pipeline {
     agent any
 
     stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
         stage('Build') {
             steps {
                 echo 'Building...'
@@ -38,7 +44,9 @@ pipeline {
             steps {
                 echo 'Deploying to Staging...'
                 // Example of deployment command to an EC2 instance
-                bat 'scp target/*.jar user@staging-server:/path/to/deploy'  // Use 'bat' for Windows
+                withCredentials([sshUserPrivateKey(credentialsId: 'staging-ssh-key', keyFileVariable: 'SSH_KEY')]) {
+                    bat 'scp -i %SSH_KEY% target/*.jar user@staging-server:/path/to/deploy'
+                }
             }
         }
 
@@ -46,7 +54,7 @@ pipeline {
             steps {
                 echo 'Running Integration Tests on Staging...'
                 // Example of running integration tests on staging
-                bat 'curl -X POST http://staging-server/run-tests'  // Use 'bat' for Windows
+                bat 'curl -X POST http://staging-server/run-tests'
             }
         }
 
@@ -54,7 +62,9 @@ pipeline {
             steps {
                 echo 'Deploying to Production...'
                 // Example of deployment command to an EC2 instance
-                bat 'scp target/*.jar user@production-server:/path/to/deploy'  // Use 'bat' for Windows
+                withCredentials([sshUserPrivateKey(credentialsId: 'production-ssh-key', keyFileVariable: 'SSH_KEY')]) {
+                    bat 'scp -i %SSH_KEY% target/*.jar user@production-server:/path/to/deploy'
+                }
             }
         }
     }
