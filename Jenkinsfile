@@ -65,13 +65,19 @@ pipeline {
         }
 
         success {
-            echo 'Sending success email...'
-            echo 'Pipeline succeeded'  // Simulate sending a success email
+            echo 'Pipeline succeeded'
+            emailext to: 's223353507@deakin.edu.au',
+                     subject: "Pipeline succeeded",
+                     body: "Pipeline finished successfully",
+                     attachLog: true
         }
 
         failure {
-            echo 'Sending failure email...'
-            echo 'Pipeline failed. Please check the logs.'  // Simulate sending a failure email
+            echo 'Pipeline failed. Please check the logs.'
+            emailext to: 's223353507@deakin.edu.au',
+                     subject: "Pipeline failed",
+                     body: "Pipeline failed. Please check the logs.",
+                     attachLog: true
         }
     }
 }
