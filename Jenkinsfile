@@ -72,7 +72,7 @@ pipeline {
         }
 
         failure {
-            mail to: 'youremail@example.com',
+            mail to: 's223353507@deakin.edu.au',
                  subject: "Pipeline failed",
                  body: "Pipeline failed. Please check the logs.",
                  attachLog: true
