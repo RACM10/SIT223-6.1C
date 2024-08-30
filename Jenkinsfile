@@ -65,7 +65,7 @@ pipeline {
         }
 
         success {
-            mail to: 'youremail@example.com',
+            mail to: 's223353507@deakin.edu.au',
                  subject: "Pipeline succeeded",
                  body: "Pipeline finished successfully",
                  attachLog: true
