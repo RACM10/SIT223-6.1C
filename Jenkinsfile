@@ -3,8 +3,8 @@ pipeline {
 
     tools {
         // Ensure Maven and Git are installed and configured in Jenkins
-        pipeline maven API
-        git plugin 
+        maven
+        git
     }
 
     stages {
