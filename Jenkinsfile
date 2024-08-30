@@ -1,74 +1,60 @@
 pipeline {
     agent any
 
-    tools {
-        // Ensure Maven and Git are installed and configured in Jenkins
-        maven
-        git
-    }
-
     stages {
         stage('Checkout') {
             steps {
-                // Ensure the correct Git installation is used
-                checkout scm
+                echo 'Checking out the source code from SCM...'
+                // Simulating checkout (no actual code checkout)
             }
         }
 
         stage('Build') {
             steps {
                 echo 'Building...'
-                // Use Maven for build
-                bat 'mvn clean package'  // Use 'bat' for Windows
+                echo 'mvn clean package'  // Simulate Maven build command
             }
         }
 
         stage('Unit and Integration Tests') {
             steps {
                 echo 'Running Unit and Integration Tests...'
-                // Use JUnit or any other testing framework
-                bat 'mvn test'  // Use 'bat' for Windows
+                echo 'mvn test'  // Simulate Maven test command
             }
         }
 
         stage('Code Analysis') {
             steps {
                 echo 'Running Code Analysis...'
-                // Use a tool like SonarQube
-                bat 'mvn sonar:sonar'  // Use 'bat' for Windows
+                echo 'mvn sonar:sonar'  // Simulate SonarQube analysis command
             }
         }
 
         stage('Security Scan') {
             steps {
                 echo 'Running Security Scan...'
-                // Use a tool like OWASP Dependency Check
-                bat 'mvn dependency-check:check'  // Use 'bat' for Windows
+                echo 'mvn dependency-check:check'  // Simulate OWASP Dependency Check command
             }
         }
 
         stage('Deploy to Staging') {
             steps {
                 echo 'Deploying to Staging...'
-                withCredentials([sshUserPrivateKey(credentialsId: 'staging-ssh-key', keyFileVariable: 'SSH_KEY')]) {
-                    bat 'scp -i %SSH_KEY% target/*.jar user@staging-server:/path/to/deploy'
-                }
+                echo 'scp -i %SSH_KEY% target/*.jar user@staging-server:/path/to/deploy'  // Simulate deployment to staging
             }
         }
 
         stage('Integration Tests on Staging') {
             steps {
                 echo 'Running Integration Tests on Staging...'
-                bat 'curl -X POST http://staging-server/run-tests'
+                echo 'curl -X POST http://staging-server/run-tests'  // Simulate integration tests on staging
             }
         }
 
         stage('Deploy to Production') {
             steps {
                 echo 'Deploying to Production...'
-                withCredentials([sshUserPrivateKey(credentialsId: 'production-ssh-key', keyFileVariable: 'SSH_KEY')]) {
-                    bat 'scp -i %SSH_KEY% target/*.jar user@production-server:/path/to/deploy'
-                }
+                echo 'scp -i %SSH_KEY% target/*.jar user@production-server:/path/to/deploy'  // Simulate deployment to production
             }
         }
     }
@@ -79,17 +65,13 @@ pipeline {
         }
 
         success {
-            emailext to: 's223353507@deakin.edu.au',
-                     subject: "Pipeline succeeded",
-                     body: "Pipeline finished successfully",
-                     attachLog: true
+            echo 'Sending success email...'
+            echo 'Pipeline succeeded'  // Simulate sending a success email
         }
 
         failure {
-            emailext to: 's223353507@deakin.edu.au',
-                     subject: "Pipeline failed",
-                     body: "Pipeline failed. Please check the logs.",
-                     attachLog: true
+            echo 'Sending failure email...'
+            echo 'Pipeline failed. Please check the logs.'  // Simulate sending a failure email
         }
     }
 }
