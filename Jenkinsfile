@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Building...'
                 // Use Maven for build
-                sh 'mvn clean package'
+                bat 'mvn clean package'  // Use 'bat' for Windows
             }
         }
 
@@ -14,7 +14,7 @@ pipeline {
             steps {
                 echo 'Running Unit and Integration Tests...'
                 // Use JUnit or any other testing framework
-                sh 'mvn test'
+                bat 'mvn test'  // Use 'bat' for Windows
             }
         }
 
@@ -22,7 +22,7 @@ pipeline {
             steps {
                 echo 'Running Code Analysis...'
                 // Use a tool like SonarQube
-                sh 'mvn sonar:sonar'
+                bat 'mvn sonar:sonar'  // Use 'bat' for Windows
             }
         }
 
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 echo 'Running Security Scan...'
                 // Use a tool like OWASP Dependency Check
-                sh 'mvn dependency-check:check'
+                bat 'mvn dependency-check:check'  // Use 'bat' for Windows
             }
         }
 
@@ -38,7 +38,7 @@ pipeline {
             steps {
                 echo 'Deploying to Staging...'
                 // Example of deployment command to an EC2 instance
-                sh 'scp target/*.jar user@staging-server:/path/to/deploy'
+                bat 'scp target/*.jar user@staging-server:/path/to/deploy'  // Use 'bat' for Windows
             }
         }
 
@@ -46,7 +46,7 @@ pipeline {
             steps {
                 echo 'Running Integration Tests on Staging...'
                 // Example of running integration tests on staging
-                sh 'curl -X POST http://staging-server/run-tests'
+                bat 'curl -X POST http://staging-server/run-tests'  // Use 'bat' for Windows
             }
         }
 
@@ -54,7 +54,7 @@ pipeline {
             steps {
                 echo 'Deploying to Production...'
                 // Example of deployment command to an EC2 instance
-                sh 'scp target/*.jar user@production-server:/path/to/deploy'
+                bat 'scp target/*.jar user@production-server:/path/to/deploy'  // Use 'bat' for Windows
             }
         }
     }
