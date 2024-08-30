@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         // Ensure Maven and Git are installed and configured in Jenkins
-        pipeline maven API // Replace with the configured Maven name
+        pipeline maven API
         git plugin 
     }
 
