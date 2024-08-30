@@ -1,9 +1,16 @@
 pipeline {
     agent any
 
+    tools {
+        // Ensure Maven and Git are installed and configured in Jenkins
+        pipeline maven API // Replace with the configured Maven name
+        git plugin 
+    }
+
     stages {
         stage('Checkout') {
             steps {
+                // Ensure the correct Git installation is used
                 checkout scm
             }
         }
@@ -43,7 +50,6 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 echo 'Deploying to Staging...'
-                // Example of deployment command to an EC2 instance
                 withCredentials([sshUserPrivateKey(credentialsId: 'staging-ssh-key', keyFileVariable: 'SSH_KEY')]) {
                     bat 'scp -i %SSH_KEY% target/*.jar user@staging-server:/path/to/deploy'
                 }
@@ -53,7 +59,6 @@ pipeline {
         stage('Integration Tests on Staging') {
             steps {
                 echo 'Running Integration Tests on Staging...'
-                // Example of running integration tests on staging
                 bat 'curl -X POST http://staging-server/run-tests'
             }
         }
@@ -61,7 +66,6 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 echo 'Deploying to Production...'
-                // Example of deployment command to an EC2 instance
                 withCredentials([sshUserPrivateKey(credentialsId: 'production-ssh-key', keyFileVariable: 'SSH_KEY')]) {
                     bat 'scp -i %SSH_KEY% target/*.jar user@production-server:/path/to/deploy'
                 }
